@@ -37,3 +37,5 @@ app.get("/api/user/:id", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// https://youtu.be/nH9E25nkk3I?si=vWWgAiTT75xV1MEI&t=2042
