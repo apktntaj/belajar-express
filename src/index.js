@@ -7,11 +7,17 @@ const PORT = process.env.PORT || 3000;
 const mockUsers = [
   { id: 1, name: "alam" },
   { id: 2, name: "khan" },
+  { id: 3, name: "jamal" },
+  { id: 4, name: "kamal" },
+  { id: 5, name: "rahim" },
 ];
 
 const mockProducts = [
   { id: 1, name: "laptop" },
   { id: 2, name: "phone" },
+  { id: 3, name: "tablet" },
+  { id: 4, name: "watch" },
+  { id: 5, name: "headphone" },
 ];
 
 app.get("/", (req, res) => {
@@ -19,7 +25,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/users", (req, res) => {
-  res.status(200).send(mockUsers);
+  const { filter, value } = req.query;
+
+  if (!filter && !value) return res.send(mockUsers);
+
+  if (filter && value) {
+    return res.send(mockUsers.filter((user) => user[filter].includes(value)));
+  }
 });
 
 app.get("/api/products", (req, res) => {
@@ -37,5 +49,3 @@ app.get("/api/user/:id", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-// https://youtu.be/nH9E25nkk3I?si=vWWgAiTT75xV1MEI&t=2042
