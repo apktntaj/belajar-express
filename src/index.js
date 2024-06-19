@@ -1,6 +1,7 @@
 import express from "express";
 
 const app = express();
+app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
@@ -32,6 +33,14 @@ app.get("/api/users", (req, res) => {
   if (filter && value) {
     return res.send(mockUsers.filter((user) => user[filter].includes(value)));
   }
+});
+
+app.post("/api/users", (req, res) => {
+  const { name } = req.body;
+
+  const newUser = { id: mockUsers.length + 1, name };
+  mockUsers.push(newUser);
+  res.status(201).send(mockUsers);
 });
 
 app.get("/api/products", (req, res) => {
